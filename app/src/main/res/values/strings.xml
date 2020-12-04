@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TinySquare</string>
+    <string name="places_around_me">Places around me</string>
+    <string name="open">Open</string>
+    <string name="no_current_location">No current location</string>
+    <string name="stop_receiving_location_updates">Stop receiving location updates</string>
+    <string name="permission_rationale">Location permission needed for this feature.</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for this feature.</string>
+    <string name="settings">Settings</string>
+    <string name="ok">OK</string>
+    <string name="current_location">Current location</string>
+</resources>
