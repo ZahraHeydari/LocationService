@@ -11,7 +11,7 @@ import coil.request.CachePolicy
 import com.android.tinysquare.databinding.FragmentDetailBinding
 import com.android.tinysquare.domain.model.ApiError
 import com.android.tinysquare.domain.model.Venue
-import com.android.tinysquare.util.toast
+import com.android.tinysquare.presentation.util.toast
 import org.koin.android.ext.android.inject
 
 

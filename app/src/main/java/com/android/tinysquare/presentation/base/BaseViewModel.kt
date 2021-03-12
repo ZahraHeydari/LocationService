@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.tinysquare.domain.model.ApiError
-import com.android.tinysquare.util.SingleLiveEvent
+import com.android.tinysquare.presentation.util.SingleLiveEvent
 import kotlinx.coroutines.cancel
 
 

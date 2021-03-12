@@ -2,6 +2,7 @@
 
 A tiny mobile app which displays nearby places around user using Foursquare API.
 
+<img src="sample.gif" width=300></img>
 
 ## The scenario
 

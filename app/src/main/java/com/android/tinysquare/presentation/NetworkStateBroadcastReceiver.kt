@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.android.tinysquare.util.isNetworkAvailable
+import com.android.tinysquare.presentation.util.isNetworkAvailable
 
 
 class NetworkStateBroadcastReceiver : BroadcastReceiver(){

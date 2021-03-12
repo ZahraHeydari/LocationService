@@ -11,7 +11,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.android.tinysquare.util.toText
+import com.android.tinysquare.presentation.util.toText
 import com.google.android.gms.location.*
 import com.android.tinysquare.R
 import com.android.tinysquare.presentation.main.MainActivity
@@ -78,7 +78,6 @@ class ForegroundOnlyLocationService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand()")
-
         val cancelLocationTrackingFromNotification =
             intent.getBooleanExtra(EXTRA_CANCEL_LOCATION_TRACKING_FROM_NOTIFICATION, false)
 

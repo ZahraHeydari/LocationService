@@ -1,5 +1,6 @@
 package com.android.tinysquare.presentation.venues
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        Log.d("VenuesAdapter", "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
         val holderVenueBinding = HolderVenueItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VenueViewHolder(holderVenueBinding)
     }
@@ -31,6 +33,7 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("VenuesAdapter", "onBindViewHolder() called with: holder = $holder, position = $position")
         (holder as VenueViewHolder).onBind(getItem(position).venue)
     }
 

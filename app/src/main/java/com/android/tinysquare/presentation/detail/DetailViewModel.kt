@@ -8,7 +8,7 @@ import com.android.tinysquare.domain.model.DetailResponse
 import com.android.tinysquare.domain.model.VenueDetail
 import com.android.tinysquare.domain.usecase.GetVenueDetailUseCase
 import com.android.tinysquare.presentation.base.BaseViewModel
-import com.android.tinysquare.util.SingleLiveEvent
+import com.android.tinysquare.presentation.util.SingleLiveEvent
 
 
 class DetailViewModel(private val getVenueDetailUseCase: GetVenueDetailUseCase) : BaseViewModel() {

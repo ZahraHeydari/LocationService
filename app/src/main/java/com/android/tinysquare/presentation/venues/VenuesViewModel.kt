@@ -8,7 +8,7 @@ import com.android.tinysquare.domain.base.UseCaseResponse
 import com.android.tinysquare.domain.model.*
 import com.android.tinysquare.domain.usecase.*
 import com.android.tinysquare.presentation.base.BaseViewModel
-import com.android.tinysquare.util.SingleLiveEvent
+import com.android.tinysquare.presentation.util.SingleLiveEvent
 
 
 class VenuesViewModel(

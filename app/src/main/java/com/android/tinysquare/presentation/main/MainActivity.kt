@@ -8,7 +8,7 @@ import com.android.tinysquare.databinding.ActivityMainBinding
 import com.android.tinysquare.domain.model.Venue
 import com.android.tinysquare.presentation.detail.DetailFragment
 import com.android.tinysquare.presentation.venues.VenuesFragment
-import com.android.tinysquare.util.newFragmentInstance
+import com.android.tinysquare.presentation.util.newFragmentInstance
 
 
 class MainActivity : AppCompatActivity(), OnMainActivityCallback{

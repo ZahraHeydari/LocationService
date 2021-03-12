@@ -26,17 +26,16 @@ import com.android.tinysquare.domain.model.Venue
 import com.android.tinysquare.presentation.ForegroundOnlyLocationService
 import com.android.tinysquare.presentation.NetworkStateBroadcastReceiver
 import com.android.tinysquare.presentation.main.OnMainActivityCallback
-import com.android.tinysquare.util.PageEndlessScrollController
-import com.android.tinysquare.util.isNetworkAvailable
-import com.android.tinysquare.util.toText
-import com.android.tinysquare.util.toast
+import com.android.tinysquare.presentation.util.PageEndlessScrollController
+import com.android.tinysquare.presentation.util.isNetworkAvailable
+import com.android.tinysquare.presentation.util.toText
+import com.android.tinysquare.presentation.util.toast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_venues.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.currentScope
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class VenuesFragment : Fragment(), PageEndlessScrollController.OnLoadMoreScrollListener,
@@ -100,7 +99,7 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVenuesBinding.inflate(inflater, container, false)
         binding.venuesAppBarLayout.venues_toolbar.title = context?.getString(R.string.places_around_me)
 
