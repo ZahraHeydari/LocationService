@@ -5,11 +5,8 @@ import androidx.room.Room
 import com.android.tinysquare.data.source.local.base.AppDatabase
 import org.koin.dsl.module
 
-
 val databaseModule = module {
-
     single { createAppDatabase(get()) }
-
 }
 
 internal fun createAppDatabase(application: Application): AppDatabase {

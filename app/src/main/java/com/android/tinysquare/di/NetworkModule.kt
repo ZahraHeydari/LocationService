@@ -10,7 +10,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 const val BASE_URL = "https://api.foursquare.com/v2/"
 const val KEY_CLIENT_ID = "client_id"
 const val KEY_CLIENT_SECRET = "client_secret"
@@ -20,19 +19,12 @@ const val CLIENT_SECRET = "ZWEMFU4YV5LGGPCYQQAG4MJSNJBB4CZUJCSL1X4L2EW20KRM"
 const val CLIENT_V = "20202810"
 const val TIME_OUT = 30L
 
-
 val networkModule = module {
-
     single { createService(get()) }
-
     single { createRetrofit(get(), get()) }
-
     single { createOkHttpClient() }
-
     single { Moshi.Builder().build() }
-
 }
-
 
 fun createOkHttpClient(): OkHttpClient {
     val client = OkHttpClient.Builder()
@@ -60,7 +52,6 @@ fun createOkHttpClient(): OkHttpClient {
 
     return client.build()
 }
-
 
 fun createRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
     return Retrofit.Builder()

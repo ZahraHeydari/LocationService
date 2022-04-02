@@ -26,5 +26,4 @@ interface LocaleDao {
         delay(10)
         return list?.let { return insertAll(it) }
     }
-
 }

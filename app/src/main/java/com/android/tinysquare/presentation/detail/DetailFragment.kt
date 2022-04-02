@@ -1,6 +1,5 @@
 package com.android.tinysquare.presentation.detail
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -14,14 +13,12 @@ import com.android.tinysquare.domain.model.Venue
 import com.android.tinysquare.presentation.util.toast
 import org.koin.android.ext.android.inject
 
-
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
     private val detailViewModel: DetailViewModel by inject()
     private var venue: Venue? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +33,6 @@ class DetailFragment : Fragment() {
         }
 
         with(detailViewModel) {
-
             venue?.id?.let { getVenueDetail(it) }
 
             venueDetail.observe(viewLifecycleOwner, Observer {
@@ -74,11 +70,7 @@ class DetailFragment : Fragment() {
         _binding = null //To avoid memory leak
     }
 
-
     companion object {
-
-        private val TAG = DetailFragment::class.java.name
         val FRAGMENT_NAME : String = DetailFragment::class.java.simpleName
     }
-
 }

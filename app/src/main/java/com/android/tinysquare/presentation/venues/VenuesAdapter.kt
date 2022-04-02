@@ -1,6 +1,5 @@
 package com.android.tinysquare.presentation.venues
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,6 @@ import com.android.tinysquare.domain.model.Locale
 import com.android.tinysquare.domain.model.Venue
 import kotlin.properties.Delegates
 
-
 class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,7 +18,6 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d("VenuesAdapter", "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
         val holderVenueBinding = HolderVenueItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VenueViewHolder(holderVenueBinding)
     }
@@ -31,9 +28,7 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("VenuesAdapter", "onBindViewHolder() called with: holder = $holder, position = $position")
         (holder as VenueViewHolder).onBind(getItem(position).venue)
     }
 
@@ -42,7 +37,6 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
 
         fun onBind(venue: Venue?) {
             if (venue == null) return
-
             with(holderVenueBinding) {
                 venueNameTextView.text = venue.name
                 venueCategoryTextView.text = venue.getCategoryLabel()
@@ -52,7 +46,6 @@ class VenuesAdapter(val onVenuesItemOnClickListener: OnVenuesItemOnClickListener
                     diskCachePolicy(CachePolicy.ENABLED)
                 }
             }
-
 
             itemView.setOnClickListener {
                 onVenuesItemOnClickListener.onItemClick(venue)

@@ -7,7 +7,6 @@ import com.android.tinysquare.data.source.local.base.CategoryTypeConverter
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
-
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Venue(

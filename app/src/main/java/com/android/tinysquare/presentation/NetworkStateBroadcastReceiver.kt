@@ -3,9 +3,7 @@ package com.android.tinysquare.presentation
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.android.tinysquare.presentation.util.isNetworkAvailable
-
 
 class NetworkStateBroadcastReceiver : BroadcastReceiver(){
 
@@ -18,7 +16,6 @@ class NetworkStateBroadcastReceiver : BroadcastReceiver(){
     }
 
     private fun notifyStateToAll() {
-        Log.d(TAG, "notifyStateToAll() called")
         for (listener in listeners)
             notifyState(listener)
     }
@@ -40,11 +37,4 @@ class NetworkStateBroadcastReceiver : BroadcastReceiver(){
         fun networkAvailable()
         fun networkUnavailable()
     }
-
-
-    companion object{
-
-        private val TAG = NetworkStateBroadcastReceiver::class.java.name
-    }
-
 }

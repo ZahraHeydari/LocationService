@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
-
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Category(
@@ -14,6 +13,5 @@ data class Category(
     val pluralName: String?,
     val shortName: String?
 ) : Parcelable {
-
     fun getIcon(): String = icon?.prefix.plus("100").plus(icon?.suffix)
 }

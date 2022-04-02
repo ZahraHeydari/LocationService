@@ -6,7 +6,6 @@ import com.android.tinysquare.domain.model.ExploreResponse
 
 class VenueRemoteDataSourceImp(private val apiService: ApiService) : VenueRemoteDataSource {
 
-
     override suspend fun getVenues(ll: String, offset: Int, limit: Int): ExploreResponse {
         return apiService.getVenues(ll, offset, limit)
     }

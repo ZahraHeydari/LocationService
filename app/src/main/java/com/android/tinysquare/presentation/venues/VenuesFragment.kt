@@ -37,10 +37,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.currentScope
 
-
 class VenuesFragment : Fragment(), PageEndlessScrollController.OnLoadMoreScrollListener,
 NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
-
 
     private var _binding: FragmentVenuesBinding? = null
     private val binding get() = _binding!! // This property is only valid between onCreateView and onDestroyView.
@@ -51,14 +49,12 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
     private var location: Location ?= null
     private var callback: OnMainActivityCallback? = null
 
-
     private val foregroundOnlyBroadcastReceiver by lazy {
         ForegroundOnlyBroadcastReceiver()
     }
 
     private val adapter: VenuesAdapter by lazy {
         VenuesAdapter(object : VenuesAdapter.OnVenuesItemOnClickListener {
-
             override fun onItemClick(venue: Venue) {
                 callback?.navigateToDetail(venue)
             }
@@ -98,7 +94,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         } else throw ClassCastException("$context must implement OnMainActivityCallback!")
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVenuesBinding.inflate(inflater, container, false)
         binding.venuesAppBarLayout.venues_toolbar.title = context?.getString(R.string.places_around_me)
@@ -124,7 +119,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
 
         return binding.root
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -152,7 +146,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         context?.let {
             LocalBroadcastManager.getInstance(it).unregisterReceiver(foregroundOnlyBroadcastReceiver)
         } //To avoid memory leak
-
         super.onPause()
     }
 
@@ -185,7 +178,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
                         REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
                     ) }.show()
         } else {
-            Log.d(TAG, "Request foreground only permission")
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
@@ -193,16 +185,12 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         }
     }
 
-
-    // Handles permission result.
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Log.d(TAG, "onRequestPermissionResult")
-
         when (requestCode) {
             REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE -> when {
                 grantResults.isEmpty() ->
@@ -235,8 +223,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
     }
 
     private fun updateUI(location: Location?) {
-        Log.d(TAG, "updateUI() called with: location = $location")
-
         if (location != null) {
             with(venuesViewModel) {
                 checkLocation(location.latitude.toString(),location.longitude.toString())
@@ -270,10 +256,8 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
 
     override fun isLoading(): Boolean = venuesViewModel.getLoadingMore()
 
-
     override fun networkAvailable() {
         if(location == null) return
-        Log.d(TAG, "networkAvailable() called")
         with(venuesViewModel){
             if(isNewLocation())
                 clearFormerData()
@@ -281,9 +265,7 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         }
     }
 
-    override fun networkUnavailable() {
-        Log.d(TAG, "networkUnavailable() called")
-    }
+    override fun networkUnavailable() {}
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -301,10 +283,6 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         super.onDetach()
     }
 
-
-    /**
-     * Receiver for location broadcasts from [ForegroundOnlyLocationService].
-     */
     private inner class ForegroundOnlyBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
@@ -313,9 +291,7 @@ NetworkStateBroadcastReceiver.OnNetworkStateReceiverListener{
         }
     }
 
-
     companion object {
-
         private val TAG = VenuesFragment::class.java.name
         val FRAGMENT_NAME: String = VenuesFragment::class.java.simpleName
         private const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 1034

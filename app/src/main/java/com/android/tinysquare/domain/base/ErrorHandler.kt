@@ -7,7 +7,6 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.sql.SQLException
 
-
 fun traceErrorException(throwable: Throwable?): ApiError {
 
     return when (throwable) {

@@ -24,5 +24,4 @@ class UserRepositoryImp constructor(
     override suspend fun loadUserLocation(): UserLocation? {
         return userLocalDataSource.loadLocation()
     }
-
 }

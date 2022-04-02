@@ -25,9 +25,7 @@ import com.google.android.gms.location.LocationRequest
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-
 val appModule = module {
-
 
     scope(named<VenuesFragment>()){
        scoped { NetworkStateBroadcastReceiver() }
@@ -47,7 +45,6 @@ val appModule = module {
 
     single { createVenuesRemoteDataSource(get()) }
 
-
     //Venues
     single { VenuesViewModel(get(), get(), get() ,get(), get()) }
 
@@ -57,12 +54,10 @@ val appModule = module {
 
     single { createInsertVenuesToDbUseCase(get()) }
 
-
     //Detail
     single { DetailViewModel(get()) }
 
     single { createGetVenueDetailUseCase(get()) }
-
 
     //User
     single { createUserRepository(get(), get()) }
@@ -74,14 +69,11 @@ val appModule = module {
     single { createInsertUserLocationToDbUseCase(get()) }
 
     single { createGetUserLocationFromDbUseCase(get()) }
-
 }
-
 
 fun createNotificationManager(context: Context): NotificationManager {
     return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }
-
 
 fun createGetVenuesUseCase(venueRepository: VenueRepository): GetVenuesUseCase {
     return GetVenuesUseCase(venueRepository)

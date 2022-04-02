@@ -18,5 +18,4 @@ interface UserLocationDao {
 
     @Query("SELECT * FROM UserLocation LIMIT 1")
     suspend fun load(): UserLocation?
-
 }

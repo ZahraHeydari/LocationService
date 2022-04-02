@@ -1,6 +1,5 @@
 package com.android.tinysquare.presentation.main
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.tinysquare.R
@@ -9,7 +8,6 @@ import com.android.tinysquare.domain.model.Venue
 import com.android.tinysquare.presentation.detail.DetailFragment
 import com.android.tinysquare.presentation.venues.VenuesFragment
 import com.android.tinysquare.presentation.util.newFragmentInstance
-
 
 class MainActivity : AppCompatActivity(), OnMainActivityCallback{
 
@@ -20,7 +18,6 @@ class MainActivity : AppCompatActivity(), OnMainActivityCallback{
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         if(savedInstanceState == null) navigateToVenuesPage()
     }
 
@@ -43,6 +40,5 @@ class MainActivity : AppCompatActivity(), OnMainActivityCallback{
             .addToBackStack(DetailFragment.FRAGMENT_NAME)
             .commit()
     }
-
 }
 

@@ -7,7 +7,6 @@ import com.android.tinysquare.domain.model.ExploreResponse
 import com.android.tinysquare.domain.model.Locale
 import com.android.tinysquare.domain.repository.VenueRepository
 
-
 /**
  * This class is responsible to choose a source for fetching data
  * Local data will be fetched using [VenueLocalDataSource]

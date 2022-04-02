@@ -10,7 +10,6 @@ import com.android.tinysquare.domain.usecase.*
 import com.android.tinysquare.presentation.base.BaseViewModel
 import com.android.tinysquare.presentation.util.SingleLiveEvent
 
-
 class VenuesViewModel(
     private val getVenuesUseCase: GetVenuesUseCase,
     private val insertVenuesToDbUseCase: InsertVenuesToDbUseCase,
@@ -18,7 +17,6 @@ class VenuesViewModel(
     private val insertUserLocationToDbUseCase: InsertUserLocationToDbUseCase,
     private val getUserLocationFromDbUseCase: GetUserLocationFromDbUseCase
 ) : BaseViewModel() {
-
 
     private var _venuesData = MutableLiveData<List<Locale>>()
     val venues: LiveData<List<Locale>> = _venuesData
@@ -29,7 +27,6 @@ class VenuesViewModel(
     private var totalCount = 0
     private var offset = 0
     private var ll = "0"
-
 
     fun isNewLocation(): Boolean {
         return isNewLocation.value ?: false
@@ -48,18 +45,15 @@ class VenuesViewModel(
 
         getVenuesUseCase.invoke(viewModelScope, ll, object : UseCaseResponse<ExploreResponse> {
             override fun onSuccess(result: ExploreResponse?) {
-
                 isLoadingMore = false
                 showLoading(false)
                 totalCount = result?.response?.totalResults ?: 0
                 result?.response?.groups?.get(0)?.items?.let { completeList.addAll(it) }
                 _venuesData.value = completeList
-
                 insertVenuesToDb(completeList)
             }
 
             override fun onError(error: ApiError) {
-                Log.e(TAG, "onError: ${error.message}")
                 isLoadingMore = false
                 showLoading(false)
                 handleError(error)
@@ -79,22 +73,21 @@ class VenuesViewModel(
 
     fun getLoadingMore(): Boolean = isLoadingMore
 
-
     fun insertVenuesToDb(list: List<Locale>?) {
         insertVenuesToDbUseCase.invoke(viewModelScope, list, object : UseCaseResponse<List<Long>?> {
             override fun onSuccess(result: List<Long>?) {
-                Log.i(TAG, "venues inserted successfully: $result")
             }
 
             override fun onError(error: ApiError) {
-                Log.e(TAG, "onError: ${error.message}")
             }
         })
     }
 
-
     fun fetchVenuesFromDb() {
-        getVenuesFromDbUseCase.invoke(viewModelScope, null, object : UseCaseResponse<List<Locale>?> {
+        getVenuesFromDbUseCase.invoke(
+            viewModelScope,
+            null,
+            object : UseCaseResponse<List<Locale>?> {
                 override fun onSuccess(result: List<Locale>?) {
                     //Log.i(TAG, "venues were fetched from db successfully: $result")
                     _venuesData.value = result
@@ -108,46 +101,38 @@ class VenuesViewModel(
     }
 
     fun checkLocation(latitude: String, longitude: String) {
-        Log.d(TAG, "checkLocation() called with: latitude = $latitude, longitude = $longitude")
-
-        getUserLocationFromDbUseCase.invoke(viewModelScope, null, object : UseCaseResponse<UserLocation?> {
-            override fun onSuccess(result: UserLocation?) {
-                Log.i(TAG, "Location was fetched successfully: $result")
-
-                if(result?.longitude == longitude && result.latitude == latitude){
-                    _isNewLocation.value = false
-                }else {
-                    _isNewLocation.value = true
-                    saveUserLocation(latitude, longitude)
+        getUserLocationFromDbUseCase.invoke(
+            viewModelScope,
+            null,
+            object : UseCaseResponse<UserLocation?> {
+                override fun onSuccess(result: UserLocation?) {
+                    if (result?.longitude == longitude && result.latitude == latitude) {
+                        _isNewLocation.value = false
+                    } else {
+                        _isNewLocation.value = true
+                        saveUserLocation(latitude, longitude)
+                    }
                 }
-            }
 
-            override fun onError(error: ApiError) {
-                Log.e(TAG, "onError: ${error.message}")
-                handleError(error)
-            }
-        })
+                override fun onError(error: ApiError) {
+                    handleError(error)
+                }
+            })
     }
-
 
     private fun saveUserLocation(latitude: String, longitude: String) {
         val location = UserLocation(latitude, longitude)
+        insertUserLocationToDbUseCase.invoke(
+            viewModelScope,
+            location,
+            object : UseCaseResponse<Long?> {
+                override fun onSuccess(result: Long?) {}
 
-        insertUserLocationToDbUseCase.invoke(viewModelScope, location, object : UseCaseResponse<Long?> {
-            override fun onSuccess(result: Long?) {
-                Log.i(TAG, "Location was saved in db successfully: $result")
-            }
-
-            override fun onError(error: ApiError) {
-                Log.e(TAG, "onError: ${error.message}")
-            }
-        })
+                override fun onError(error: ApiError) {}
+            })
     }
-
 
     companion object {
-
         private val TAG = VenuesViewModel::class.java.name
     }
-
 }

@@ -1,6 +1,5 @@
 package com.android.tinysquare.presentation
 
-
 import android.app.*
 import android.content.Intent
 import android.location.Location
@@ -17,7 +16,6 @@ import com.android.tinysquare.R
 import com.android.tinysquare.presentation.main.MainActivity
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
-
 
 /**
  * Service tracks location when requested and updates [VenuesFragment]. If [VenuesFragment]
@@ -37,10 +35,7 @@ class ForegroundOnlyLocationService : Service() {
     private val localBinder = LocalBinder()
     private var currentLocation: Location? = null
 
-
     override fun onCreate() {
-        Log.d(TAG, "onCreate()")
-
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
 
         locationRequest.apply {
@@ -51,16 +46,11 @@ class ForegroundOnlyLocationService : Service() {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
-
         locationCallback = object : LocationCallback() {
-
             override fun onLocationResult(locationResult: LocationResult?) {
                 super.onLocationResult(locationResult)
-                Log.i(TAG, "onLocationResult: $locationResult last: ${locationResult?.lastLocation} current: $currentLocation")
-
                 if (locationResult?.lastLocation != null) {
                     currentLocation = locationResult.lastLocation
-
                     val intent = Intent(ACTION_FOREGROUND_ONLY_LOCATION_BROADCAST).apply {
                         putExtra(EXTRA_LOCATION, currentLocation)
                     }
@@ -77,7 +67,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand()")
         val cancelLocationTrackingFromNotification =
             intent.getBooleanExtra(EXTRA_CANCEL_LOCATION_TRACKING_FROM_NOTIFICATION, false)
 
@@ -89,8 +78,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     override fun onBind(intent: Intent): IBinder {
-        Log.d(TAG, "onBind()")
-
         // VenuesFragment comes into foreground and binds to service, so the service can become a background services.
         stopForeground(true)
         serviceRunningInForeground = false
@@ -98,8 +85,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     override fun onRebind(intent: Intent) {
-        Log.d(TAG, "onRebind()")
-
         // VenuesFragment returns to the foreground and rebinds to service, so the service can become a background services.
         stopForeground(true)
         serviceRunningInForeground = false
@@ -107,7 +92,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     override fun onUnbind(intent: Intent): Boolean {
-        Log.d(TAG, "onUnbind()")
         val notification = generateNotification(currentLocation)
         startForeground(NOTIFICATION_ID, notification)
         serviceRunningInForeground = true
@@ -115,10 +99,7 @@ class ForegroundOnlyLocationService : Service() {
         return true
     }
 
-
     fun subscribeToLocationUpdates() {
-        Log.d(TAG, "subscribeToLocationUpdates()")
-
         /* Binding to this service doesn't actually trigger onStartCommand(). That is needed to
         * ensure this Service can be promoted to a foreground service.
         * */
@@ -132,8 +113,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     private fun unsubscribeToLocationUpdates() {
-        Log.d(TAG, "unsubscribeToLocationUpdates()")
-
         try {
             val removeTask = fusedLocationProviderClient.removeLocationUpdates(locationCallback)
             removeTask.addOnCompleteListener { task ->
@@ -147,10 +126,7 @@ class ForegroundOnlyLocationService : Service() {
         }
     }
 
-
     private fun generateNotification(location: Location?): Notification {
-        Log.d(TAG, "generateNotification()")
-
         val mainNotificationText = location?.toText() ?: getString(com.android.tinysquare.R.string.no_current_location)
         val titleText = getString(R.string.current_location)
 
@@ -210,7 +186,6 @@ class ForegroundOnlyLocationService : Service() {
     }
 
     companion object {
-
         private val TAG = ForegroundOnlyLocationService::class.java.name
         private const val PACKAGE_NAME = "com.android.tinysquare"
         private const val NOTIFICATION_ID = 100017
@@ -222,7 +197,5 @@ class ForegroundOnlyLocationService : Service() {
 
         private const val EXTRA_CANCEL_LOCATION_TRACKING_FROM_NOTIFICATION =
             "$PACKAGE_NAME.extra.CANCEL_LOCATION_TRACKING_FROM_NOTIFICATION"
-
-
     }
 }

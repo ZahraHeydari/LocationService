@@ -1,6 +1,5 @@
 package com.android.tinysquare.presentation.util
 
-
 import android.content.Context
 import android.location.Location
 import android.net.ConnectivityManager
@@ -9,7 +8,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-
 
 inline fun <reified T : Fragment> newFragmentInstance(vararg params: Pair<String, Any?>): T {
     return T::class.java.newInstance().apply {
@@ -22,9 +20,7 @@ inline fun <reified T : Fragment> newFragmentInstance(vararg params: Pair<String
  */
 fun Location?.toText() = if (this != null) "$latitude, $longitude" else "Unknown location"
 
-
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
 
 fun isNetworkAvailable(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
